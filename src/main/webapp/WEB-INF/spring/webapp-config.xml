@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:task="http://www.springframework.org/schema/task"
+     
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+        
+        
+        
+ 
+    <context:component-scan base-package="com.bbytes" />
+   
+    <mvc:annotation-driven />
+      <mvc:default-servlet-handler/>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/html/" />
+        <property name="suffix" value=".html" />
+    </bean>
+    <bean 
+class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="location">
+		<value>/WEB-INF/jdbc.properties</value>
+	</property>
+</bean> 
+     <bean id="dataSource"
+        class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+        p:driverClassName="${jdbc.driverClassName}"
+        p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
+        p:password="${jdbc.password}" />
+ 
+   <!--  <import resource="../database/datasource.xml"/> -->
+	<import resource="../database/hibernate.xml"/>
+    
+
+    
+   <bean id="serviceMonitorScheduler" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+    <property name="jobClass" value="com.bbytes.scheduler.ServiceMonitorScheduler" />
+        <property name="jobDataAsMap">
+            <map>
+              <entry key ="sqlServiceMonitorDao" value-ref="sqlServiceMonitorDao"/>
+              <entry key ="queueServiceMonitorDao" value-ref="queueServiceMonitorDao"/>
+              <entry key ="cacheServiceMonitorDao" value-ref="cacheServiceMonitorDao"/>
+              <entry key ="urlServiceMonitorDao" value-ref="urlServiceMonitorDao"/>
+              <entry key="timeout" value="5" />
+            </map>
+        </property>
+    
+    </bean>
+    <bean id="sqlServiceMonitorDao" class="com.bbytes.dao.SqlServiceMonitorDao"></bean>
+     <bean id="queueServiceMonitorDao" class="com.bbytes.dao.QueueServiceMonitorDao"></bean>
+      <bean id="cacheServiceMonitorDao" class="com.bbytes.dao.CacheServiceMonitorDao"></bean>
+       <bean id="urlServiceMonitorDao" class="com.bbytes.dao.UrlServiceMonitorDao"></bean>
+   
+    <bean id="jobClass"
+    class="com.bbytes.scheduler.ServiceMonitorScheduler"></bean>
+    
+      <!-- Cron Trigger -->
+   <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+ 
+	<property name="jobDetail" ref="serviceMonitorScheduler" />
+	<property name="cronExpression" value="0/20 * * * * ?" />
+ 
+   </bean>
+ 
+   <!-- Scheduler -->
+   <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<property name="jobDetails">
+	   <list>
+	      <ref bean="serviceMonitorScheduler" />
+	   </list>
+	</property>
+ 
+	<property name="triggers">
+	    <list>
+		<ref bean="cronTrigger" />
+		
+	    </list>
+	</property>
+   </bean>
+    
+    
+    
+</beans>

@@ -1,0 +1,38 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+<form class="form-horizontal" name="form">
+  
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Email Id</label>
+
+        <div class="controls">
+        
+            <input type="email" id="inputEmail" ng-model="email" name="uEmail" placeholder="Email Id" required>
+            <div ng-show="form.uEmail.$dirty && form.uEmail.$invalid">Invalid:
+      <span ng-show="form.uEmail.$error.required">Tell us your email.</span>
+      <span ng-show="form.uEmail.$error.email">This is not a valid email.</span> 
+        </div>
+        </div>
+        
+   </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">Password</label>
+
+        <div class="controls">
+
+
+            <input type="password" id="inputPassword" ng-model="password"  name="uPassword" required placeholder='Password' ng-minlength="3" ng-maxlength="10"  />
+            <!--  <span class="error" ng-show="form.uPassword.$dirty && form.uPassword.$error.minlength">Too short</span> -->
+        
+        </div>
+    </div>
+    
+    <div class="control-group">
+       
+        <div class="controls">
+            <button type="submit" class="btn btn-primary"  ng-click="login('inputPassword',form)">Login</button>
+             <button type="button" class="btn" ng-click="resetUserForm()">Reset</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,76 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+<form class="form-horizontal" name="form"  ng-show="loggedInUser==null">
+  <div class="controls">
+           <input type="hidden" id="inputActive" ng-model="active">
+        </div>
+  <div class="control-group">
+        <label class="control-label" for="inputFname">First Name</label>
+
+        <div class="controls">
+           <input type="text" id="inputFname" ng-model="user.fname" placeholder="First Name" required>
+        </div>
+   </div>
+   <div class="control-group">
+        <label class="control-label" for="inputLname">Last Name</label>
+
+        <div class="controls">
+           <input type="text" id="inputLname" ng-model="user.lname" placeholder="Last Name" required>
+        </div>
+   </div>
+    <div class="control-group">
+        <label class="control-label" for="inputMobNo">Mobile Number</label>
+
+        <div class="controls">
+           <input type="text" id="inputMobNo" ng-model="user.mobileno" placeholder="Mobile Number" required>
+        </div>
+   </div>
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Email Id</label>
+
+        <div class="controls">
+            <input type="email" id="inputEmail" ng-model="user.email" name="uEmail" placeholder="Email Id" required>
+             <div ng-show="form.uEmail.$dirty && form.uEmail.$invalid">Invalid:
+      <span ng-show="form.uEmail.$error.required">Tell us your email.</span>
+      <span ng-show="form.uEmail.$error.email">This is not a valid email.</span>
+        </div>
+        </div>
+        
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">Create Password</label>
+
+        <div class="controls">
+
+
+            <input  type="password" id="inputPassword" ng-model="user.password"  name="uPassword" required placeholder='Password' ng-minlength="3" ng-maxlength="15"  />
+             <span class="error" ng-show="form.uPassword.$dirty && form.uPassword.$error.minlength">Too short</span>
+    <span ng-show="form.uPassword.$dirty && form.uPassword.$error.required">Password required.</span>
+            
+        </div>
+    </div>
+     <div class="control-group">
+        <label class="control-label" for="inputRepPassword">Confirm Password</label>
+
+        <div class="controls">
+
+
+            <input type="password" id="inputRepPassword" ng-model="user1.confirmpassword"  name="ucPassword" required placeholder='Confirm Password' ng-minlength="3" ng-maxlength="15"  >
+            <span class="error" ng-show="form.ucPassword.$dirty && form.ucPassword.$error.minlength">Too short</span>
+    <span ng-show="form.ucPassword.$dirty && form.ucPassword.$error.required">Retype password.</span>
+    <div ng-show="(form.uPassword.$dirty && form.ucPassword.$dirty) && (user.password != user1.confirmpassword)">
+        <span>Password mismatched</span>
+        </div>
+    </div>
+    </div>
+    <div class="control-group">
+       
+       <div class="controls">
+            <button type="submit" class="btn btn-primary"  ng-click="addNewUser()">Add User</button>
+             <button type="button" class="btn" ng-click="resetUserForm()">Reset</button>
+        </div>
+        
+    </div>
+</form>
+

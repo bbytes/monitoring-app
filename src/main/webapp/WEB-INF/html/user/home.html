@@ -1,0 +1,642 @@
+<script src="resources/js/controller/ServiceController.js"></script>
+
+<!-- Displays Logged In User's first name -->
+<p>WEL-COME {{loggedInUser.fname}}</p>
+
+
+
+<!-- SignOut Controller -->
+<div ng-controller="logoutController">
+	<a href="javascript:;" ng-click="logout()" style="float: right;">Signout</a>
+</div>
+<!-- End of SignOut Controller -->
+
+<br>
+
+
+<!-- Service Controller -->
+<div class="control-group" ng-controller="ServiceController">
+
+
+
+<!-- Button to add the Services in Database by opening the Bootstrap Modal  -->
+
+	<button class="btn btn-info btn-lg" data-toggle="modal"
+		style="float: left;" ng-click="addAllService()">Add Service
+		Monitor</button>
+
+	<!--  Opening a Bootstrap Modal -->
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Service Monitoring</h4>
+				</div>
+				<form class="form-horizontal" name="form">
+
+					<div class="modal-body">
+
+
+						<div class="control-group">
+							<p>You have selected:{{user.services_name}}</p>
+							<label class="control-label" for="inputServices">Services</label>
+
+							<div class="controls">
+								<select
+									ng-options="item.value as item.name for item in monitor_service"
+									ng-model="user.services_name">
+									<option value="">Select One</option>
+								</select>
+							</div>
+
+						</div>
+
+
+
+						<div class="control-group">
+							<label class="control-label" for="name">Name</label>
+
+							<div class="controls">
+								<input type="text" id="name" ng-model="user.name"
+									placeholder="Name">
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="description">Description</label>
+
+							<div class="controls">
+								<input type="text" id="description" ng-model="user.description"
+									placeholder="Description">
+							</div>
+						</div>
+
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="addService()">Next</button>
+								<button type="button" class="btn" ng-click="resetUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Bootstrap Modal  -->
+
+	<!-- Opens a Bootstrap Modal to select the Database service_type -->
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Database Monitoring</h4>
+				</div>
+				<form class="form-horizontal" name="myform1">
+					<div class="modal-body">
+
+						<br>
+						<div class="control-group">
+							<label class="control-label" for="inputFname">Radio
+								buttons</label><br>
+
+							<div class="controls">
+								MySql <input type="radio" id="service_type" name="service_type"
+									ng-model="user.service_type" value="MySql"> Oracle <input
+									type="radio" id="service_type" name="service_type"
+									ng-model="user.service_type" value="Oracle"> MsSql <input
+									type="radio" id="service_type" name="service_type"
+									ng-model="user.service_type" value="MsSql"> Postgres<input
+									type="radio" id="service_type" name="service_type"
+									ng-model="user.service_type" value="Postgres">
+							</div>
+						</div>
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="addServiceNext()">Next</button>
+								<button type="button" class="btn" ng-click="resetNextUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Bootstrap modal  -->
+
+	<!--  Opens a Bootstrap Modal to select the Queue service_type -->
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Queue Monitoring</h4>
+				</div>
+				<br>
+				<div class="modal-body">
+					<form class="form-horizontal" name="form">
+
+						<div class="control-group">
+							<label class="control-label" for="inputFname">Radio
+								buttons</label><br>
+
+							<div class="controls">
+								RabbitMq <input type="radio" id="service_type"
+									name="service_type" ng-model="user.service_type"
+									value="RabbitMq">Kafka <input type="radio"
+									id="service_type" name="service_type"
+									ng-model="user.service_type" value="Kafka">ActiveMq <input
+									type="radio" id="service_type" name="service_type"
+									ng-model="user.service_type" value="ActiveMq">
+							</div>
+						</div>
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="addServiceNext()">Next</button>
+								<button type="button" class="btn" ng-click="resetNextUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Bootstrap modal  -->
+
+	<!--  Opens a Bootstrap Modal to select the Cache service_type -->
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Cache Monitoring</h4>
+				</div>
+				<form class="form-horizontal" name="form">
+					<div class="modal-body">
+						<br>
+
+						<div class="control-group">
+							<label class="control-label" for="inputFname">Radio
+								buttons</label><br>
+
+							<div class="controls">
+								Redis <input type="radio" id="service_type" name="service_type"
+									ng-model="user.service_type" value="Redis"><br>
+								Memcache <input type="radio" id="service_type"
+									name="service_type" ng-model="user.service_type"
+									value="Memcache"><br>
+							</div>
+						</div>
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="addServiceNext()">Next</button>
+								<button type="button" class="btn" ng-click="resetNextUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- End of Bootstrap modal  -->
+
+	<!--  Opens a Bootstrap Modal to save the URL in database -->
+	<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">URL Monitoring</h4>
+				</div>
+				<form class="form-horizontal" name="form">
+					<div class="modal-body">
+
+
+						<div class="controls">
+							<input type="hidden" id="inputActive" ng-model="active">
+						</div>
+						<br>
+						<div class="control-group">
+							<label class="control-label" for="url">URL</label>
+
+							<div class="controls">
+								<input type="text" id="url" ng-model="user.url"
+									placeholder="URL">
+							</div>
+						</div>
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="SaveUrl(loggedInUser.id)">Save</button>
+								<button type="button" class="btn" ng-click="resetNextUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- End of Bootstrap modal  -->
+
+
+	<!--  Opens a Bootstrap Modal to save the details Queue Service in database -->
+	<div class="modal fade" id="myModal5" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Queue</h4>
+				</div>
+
+				<form name="myform" class="form-horizontal">
+					<div class="modal-body">
+
+						<div class="control-group">
+							<label class="control-label">IP:</label>
+							<div class="controls">
+								<input type="text" ng-model="user.ip" placeholder="IP" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">PORT:</label>
+							<div class="controls">
+
+								<input type="text" ng-model="user.port" placeholder="PORT" />
+
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">QUEUE NAME:</label>
+							<div class="controls">
+								<input type="text" ng-model="user.queue_name"
+									placeholder="Queue Name" />
+							</div>
+						</div>
+
+
+
+
+
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="SaveQueue(loggedInUser.id)">Save</button>
+								<button type="button" class="btn" ng-click="resetSaveUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- End of Bootstrap modal  -->
+
+	<!--  Opens a Bootstrap Modal to save the Database Service details in database -->
+	<div class="modal fade" id="myModal6" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Database</h4>
+				</div>
+				<form name="myForm" class="form-horizontal">
+					<div class="modal-body">
+
+						<div class="control-group">
+							<label class="control-label">IP:</label>
+							<div class="controls">
+								<input type="text" ng-model="user.ip" placeholder="IP" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">PORT:</label>
+							<div class="controls">
+
+								<input type="text" ng-model="user.port" placeholder="PORT" />
+
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">SCHEMA NAME:</label>
+							<div class="controls">
+								<input type="text" ng-model="user.schema_name"
+									placeholder="SCHEMA NAME" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">USERNAME:</label>
+							<div class="controls">
+
+								<input type="text" ng-model="user.user_name"
+									placeholder="USERNAME" />
+
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">PASSWORD:</label>
+							<div class="controls">
+
+								<input type="text" ng-model="user.password"
+									placeholder="PASSWORD" />
+
+							</div>
+						</div>
+
+
+
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="SaveDatabase(loggedInUser.id)">Save</button>
+								<button type="button" class="btn" ng-click="resetSaveUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End of Bootstrap modal  -->
+
+	<!--  Opens a Bootstrap Modal to save the Cache Service details in database -->
+	<div class="modal fade" id="myModal7" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Cache</h4>
+				</div>
+
+
+				<form class="form-horizontal">
+					<div class="modal-body">
+						<div class="control-group">
+							<label class="control-label">IP:</label>
+							<div class="controls">
+								<input type="text" ng-model="user.ip" placeholder="IP" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">PORT:</label>
+							<div class="controls">
+
+								<input type="text" ng-model="user.port" placeholder="PORT" />
+
+							</div>
+						</div>
+
+						<div class="control-group">
+
+							<div class="controls">
+								<button type="button" class="btn btn-primary"
+									ng-click="SaveCache(loggedInUser.id)">Save</button>
+								<button type="button" class="btn" ng-click="resetSaveUserForm()">Reset</button>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+					</div>
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Bootstrap modal  -->
+
+
+</div>
+
+<!-- End of Service Controller  -->
+
+<!-- Calls the getServiceController  -->
+
+
+<div ng-controller="getServiceController">
+	<br> <br> <br>
+	<div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Service Name</th>
+					<th>Service Type</th>
+					<th>More</th>
+					<th>Start/Stop</th>
+					<th>Delete</th>
+					<th>Ping</th>
+				</tr>
+
+			</thead>
+			<tbody >
+			
+				<tr ng-repeat="service in user">
+
+					<td>{{service.services_name}}</td>
+					<td>{{service.service_type}}</td>
+
+					<td><a href="{{service.id}}"
+						ng-click="more(service.id,service.services_name,loggedInUser.id)"
+						data-toggle="modal">More</a></td>
+					<td ng-hide="service.isactive== 1 "><button
+							class="btn btn-primary btn-small"
+							ng-click="updateService(service.id,service.services_name,service.isactive,service)">Start</button></td>
+
+					<td ng-show="service.isactive== 1 "><button
+							class="btn btn-danger btn-small"
+							ng-click="updateService(service.id,service.services_name,service.isactive,service)">Stop</button></td>
+							<!-- <td>	<input type="button" startstop value="button"></input></td> -->
+                    <td><button class="btn btn-success btn-small"
+						ng-click="deleteService(service.id,service.services_name)">Delete</button></td> 
+						 <td><button class="btn btn-warning btn-small" 
+						ng-click="ping(service.id,service.services_name,service.ip,service.port,service.url)">Ping</button></td><td><i ng-if="serviceStatus.status=='true' && serviceStatus.id==service.id" class="icon-ok icon-black"></i><i ng-if="serviceStatus.status=='false' && serviceStatus.id==service.id" class="icon-remove icon-black"></i></td>
+					
+					<td><i ng-show="pings=='true' && servicesStatus.id==service.id" class="icon-ok icon-black"></i><i ng-show="pings=='false' && servicesStatus.id==service.id" class="icon-remove icon-black"></i></td>
+					</tr>	
+			</tbody>
+		</table>
+		<!-- <div><i ng-if="serviceStatus.status=='true' && service.id==service.id" class="icon-ok icon-black"></i><i ng-if="serviceStatus.status=='false' && service.id==service.id" class="icon-remove icon-black"></i>
+				</div> -->
+
+	</div>
+
+	<!-- Opens a modal with Details of selected service  -->
+	<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						ng-click="close()">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Service Monitoring</h4>
+				</div>
+				<form class="form-horizontal" name="myform1">
+					<div class="modal-body">
+
+						<table ng-repeat="users in user " ng-show = "users.id === serviceDetail.id">
+							<tr>
+								<td><label>IP</label></td>
+								<td>{{users.ip}}</td>
+							</tr>
+							<tr>
+								<td><label>PORT</label></td>
+								<td>{{users.port}}</td>
+							</tr>
+							<tr>
+								<td><label>NAME</label></td>
+								<td>{{users.name}}</td>
+							</tr>
+							<tr>
+								<td><label>DESCRIPTION</label></td>
+								<td>{{users.description}}</td>
+							</tr>
+							<tr>
+								<td><label>SERVICE TYPE</label></td>
+								<td>{{users.service_type}}</td>
+							<tr ng-if="users.services_name=='database'">
+								<td><label>NAME</label></td>
+								<td>{{users.user_name}}</td>
+							<tr ng-if="users.services_name=='database'">
+								<td><label>PASSWORD</label></td>
+								<td>{{users.password}}</td>
+							<tr ng-if="users.services_name=='database'">
+								<td><label>SCHEMA NAME</label></td>
+								<td>{{users.schema_name}}</td>
+							<tr ng-if="users.services_name=='queue'">
+								<td><label>QUEUE NAME</label></td>
+								<td>{{users.queue_name}}</td>
+							<tr ng-if="users.services_name=='url'">
+								<td><label>URL</label></td>
+								<td>{{users.url}}</td>
+							</tr>
+
+						</table>
+
+
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-click="close()">Close</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- End of Modal -->
+
+</div>
+
+<!-- End of Controller  -->
+
+
+
+
+
