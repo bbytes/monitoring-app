@@ -5,23 +5,13 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
-
 import javax.annotation.Resource;
-
-
-
-
-
-
-
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import com.bbytes.dao.ServiceMonitorDao;
 import com.bbytes.entity.ServiceMonitorEntity;
 
 
-@Component
+
 @Service
 public class SqlServiceMonitor implements ServiceMonitor {
 

@@ -12,9 +12,6 @@ import redis.clients.jedis.Jedis;
 @Component
 public class PingCache extends Assert{
    
-	
-	
-	@Test
 	public String ping(String ip, String port) throws Exception{
 		int ports = Integer.parseInt(port);
 	Jedis jedis = new Jedis(ip, ports);

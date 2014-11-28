@@ -14,8 +14,7 @@
 		pre-post-annotations="enabled" secured-annotations="enabled" />
 
 	<!-- Configure Spring Security -->
-	<security:http auto-config="true" use-expressions="true"
-		entry-point-ref="restAuthenticationEntryPoint">
+	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/**" access="permitAll" />
 
 		<!-- Override default login and logout pages -->
@@ -45,7 +44,7 @@
 		<property name="loginFailureURL" value="/login/failure" />
 	</bean>
 
-	<bean id="restAuthenticationEntryPoint" class="com.bbytes.auth.RestAuthenticationEntryPoint" />
+	
 
 
 </beans>

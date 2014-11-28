@@ -9,23 +9,12 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-
-
-
-
-
-
-
-
-
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.bbytes.dao.ServiceMonitorDao;
 import com.bbytes.entity.ServiceMonitorEntity;
 
-@Component
+
 @Service
 public class UrlServiceMonitor implements ServiceMonitor{
 

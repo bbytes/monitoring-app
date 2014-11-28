@@ -12,7 +12,6 @@ import com.bbytes.dao.UserLoginDao;
 import com.bbytes.entity.UserEntity;
 
 @Service
-
 public class UserLoginServiceImpl implements UserLoginService{
 
 	private final Logger log = LoggerFactory

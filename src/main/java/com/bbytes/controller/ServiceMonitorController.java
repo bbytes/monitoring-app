@@ -20,9 +20,6 @@ import com.bbytes.entity.DbServiceMonitorEntity;
 import com.bbytes.entity.QueueServiceMonitorEntity;
 import com.bbytes.entity.ServiceMonitorEntity;
 import com.bbytes.entity.UrlServiceMonitorEntity;
-import com.bbytes.ping.PingCache;
-import com.bbytes.ping.ReceiveQueue;
-import com.bbytes.ping.SendQueue;
 import com.bbytes.scheduler.ServiceMonitorScheduler;
 import com.bbytes.service.ServiceMonitor;
 
