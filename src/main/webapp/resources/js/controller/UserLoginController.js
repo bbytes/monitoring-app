@@ -1,7 +1,7 @@
 'use strict';
 
 
-var UserLoginController = function($scope, $rootScope, $location,$timeout,appAuth,Login,$http) {
+var UserLoginController = function($scope, $rootScope, $location,$timeout,Login,$http) {
 
 	
 
@@ -23,21 +23,17 @@ var UserLoginController = function($scope, $rootScope, $location,$timeout,appAut
 				if (data == 'failure') {
 					alert("Check credentials");
 					$rootScope.loggedInUser = null;
-					/*$scope.loginErr = true;*/
-					//$location.path("/index");
-					/*$timeout(function(){
-						$scope.loginErr = false;
-					}, 5000);*/
+					$scope.email = '';
+					$scope.password = '';
 				} else {
-					/*$scope.loginErr = false;*/
-					alert("successfully logged in..");
+					
 					$rootScope.loggedInUser = data;
-					//$location.path("user/home");
-					appAuth.redirectToAttemptedUrl();
+					$location.path("/home");
+					/*appAuth.redirectToAttemptedUrl();*/
 					
 					
 				}
-				return data;
+				return false;
 			});
 		}
 	};
@@ -63,7 +59,7 @@ var UserLoginController = function($scope, $rootScope, $location,$timeout,appAut
 	$scope.predicate = 'id';
 };
 
-var HomeController = function($scope, $rootScope, $location,$timeout,appAuth,Login) {
+var HomeController = function($scope, $rootScope, $location,$timeout,Login) {
 	
 	
 

@@ -5,25 +5,6 @@ var ServiceMonitor = {};
 var ServiceMonitor = angular.module('ServiceMonitor', ['ngResource','ngRoute','ServiceMonitor.directives','ServiceMonitor.filters'
 ]);
 
-ServiceMonitor.value('redirectToUrlAfterLogin', { url: '/home' });
-
-ServiceMonitor.service('appAuth', function ($location, redirectToUrlAfterLogin) {
-	  return {
-	    saveAttemptUrl: function() {
-	      if($location.path().toLowerCase() != '/login') {
-	        redirectToUrlAfterLogin.url = $location.path();
-	      }
-	      else
-	        redirectToUrlAfterLogin.url = '/home';
-	    },
-	    redirectToAttemptedUrl: function() {
-	      var redirectUrl = redirectToUrlAfterLogin.url;
-	      redirectToUrlAfterLogin.url = "/home";
-	      $location.path(redirectUrl);
-	    }
-	  };
-	});
-
 ServiceMonitor.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/login', {
 		templateUrl : 'login',
@@ -36,34 +17,17 @@ ServiceMonitor.config([ '$routeProvider', function($routeProvider) {
 		controller : HomeController
 	});
 	
-} ]).run([ '$rootScope', '$location', 'Login', 'appAuth',function($rootScope,$location, Login, appAuth){
+} ]).run([ '$rootScope', '$location', 'Login',function($rootScope,$location, Login){
 	$rootScope.loggedInUser = null;
 	Login.getLoggedInUser(function(data){
 		if(!data){
-			appAuth.saveAttemptUrl();
-			$rootScope.loggedInUser = null;
 			
+			$rootScope.loggedInUser = null;
+			$location.path("user/login");
 		} else {
 			$rootScope.loggedInUser = data;
 			
 		}
 	});
 }]);
-ServiceMonitor.config([ "$httpProvider", function($httpProvider) {
-	$httpProvider.responseInterceptors.push(function($q, $location, $injector, $rootScope, appAuth) {
-		return function(promise) {
-			return promise.then(function(response) {
-				return response;
-			}, function(response) {
-				if (response.status === 401){
-			        appAuth.saveAttemptUrl();
-			        $rootScope.loggedInUser = null;
-			        $location.url('user/login');
-			      /*  $("#myModal").modal('show');*/
-				}
-				return $q.reject(response);
-			});
-		};
-	});
-} ]);
 
