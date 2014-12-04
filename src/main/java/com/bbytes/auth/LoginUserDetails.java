@@ -32,40 +32,40 @@ public class LoginUserDetails implements UserDetails{
 		return this.user;
 	}
 
-	@Override
+	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return new ArrayList<GrantedAuthority>();
 	}
 
-	@Override
+	
 	public String getPassword() {
 		return password;
 	}
 
-	@Override
+	
 	public String getUsername() {
 		return email;
 	}
 
-	@Override
+	
 	public boolean isAccountNonExpired() {
 		
 		return true;
 	}
 
-	@Override
+	
 	public boolean isAccountNonLocked() {
 	
 		return true;
 	}
 
-	@Override
+	
 	public boolean isCredentialsNonExpired() {
 		
 		return true;
 	}
 
-	@Override
+	
 	public boolean isEnabled() {
 		
 		return true;

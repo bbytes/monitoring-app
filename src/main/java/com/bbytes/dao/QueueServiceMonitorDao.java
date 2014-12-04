@@ -38,7 +38,7 @@ public class QueueServiceMonitorDao implements ServiceMonitorDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> getServiceById(long id,String services_name) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(QueueServiceMonitorEntity.class);
 		criteria.add(Restrictions.like("services_name", services_name));
@@ -56,7 +56,7 @@ public class QueueServiceMonitorDao implements ServiceMonitorDao{
 	}*/
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> saveActive(long id, boolean isactive) {
 		Criteria criteria  = sessionFactory.getCurrentSession().createCriteria(QueueServiceMonitorEntity.class);
 		criteria.add(Restrictions.eq("id", id)).add(Restrictions.like("isactive",isactive ));
@@ -67,7 +67,7 @@ public class QueueServiceMonitorDao implements ServiceMonitorDao{
 		
 	}
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> stopActive(long id, boolean isactive) {
 		Criteria criteria  = sessionFactory.getCurrentSession().createCriteria(QueueServiceMonitorEntity.class);
 		criteria.add(Restrictions.eq("id", id)).add(Restrictions.like("isactive",isactive ));
@@ -79,13 +79,13 @@ public class QueueServiceMonitorDao implements ServiceMonitorDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> getAllServices() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(QueueServiceMonitorEntity.class);
 		return criteria.list();
 	}
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> deleteService(long id, String services_name) {
 		Criteria criteria  = sessionFactory.getCurrentSession().createCriteria(QueueServiceMonitorEntity.class);
 		criteria.add(Restrictions.eq("id", id)).add(Restrictions.like("services_name",services_name ));

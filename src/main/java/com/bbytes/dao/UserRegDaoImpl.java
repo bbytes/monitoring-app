@@ -18,16 +18,6 @@ public class UserRegDaoImpl implements UserRegisterDao{
 		System.out.println("Successfully saved in database");
 		
 	}
-	@Override
-	public UserEntity findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	
-	
-	
-	
-	
-
 }

@@ -12,8 +12,6 @@ import com.bbytes.dao.ServiceMonitorDao;
 import com.bbytes.entity.ServiceMonitorEntity;
 import com.bbytes.ping.PingQueue;
 
-
-
 @Service
 public class QueueServiceMonitor implements ServiceMonitor {
 
@@ -24,14 +22,12 @@ public class QueueServiceMonitor implements ServiceMonitor {
 	@Autowired
 	PingQueue pingQueue;
 
-	@Override
 	public List<ServiceMonitorEntity> getAllServices(long uid) {
 		List<ServiceMonitorEntity> list = queueServiceMonitorDao
 				.getAllServices(uid);
 		return list;
 	}
 
-	@Override
 	public boolean ping(int id, String services_name, String ip, String port,
 			String url) {
 		try {

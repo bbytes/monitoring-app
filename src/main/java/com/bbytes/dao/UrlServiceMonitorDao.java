@@ -31,7 +31,7 @@ public class UrlServiceMonitorDao implements ServiceMonitorDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> getAllServices(long userid) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UrlServiceMonitorEntity.class);
 		criteria.add(Restrictions.like("userid", userid));
@@ -39,7 +39,7 @@ public class UrlServiceMonitorDao implements ServiceMonitorDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> getServiceById(long id, String services_name) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UrlServiceMonitorEntity.class);
 		criteria.add(Restrictions.like("services_name", services_name));
@@ -56,7 +56,7 @@ public class UrlServiceMonitorDao implements ServiceMonitorDao{
 	}*/
 
 	@SuppressWarnings("unchecked")
-	@Override
+
 	public List<ServiceMonitorEntity> saveActive(long id, boolean isactive) {
 		Criteria criteria  = sessionFactory.getCurrentSession().createCriteria(UrlServiceMonitorEntity.class);
 		criteria.add(Restrictions.eq("id", id)).add(Restrictions.like("isactive",isactive ));
@@ -68,7 +68,7 @@ public class UrlServiceMonitorDao implements ServiceMonitorDao{
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> stopActive(long id, boolean isactive) {
 		Criteria criteria  = sessionFactory.getCurrentSession().createCriteria(UrlServiceMonitorEntity.class);
 		criteria.add(Restrictions.eq("id", id)).add(Restrictions.like("isactive",isactive ));
@@ -80,14 +80,14 @@ public class UrlServiceMonitorDao implements ServiceMonitorDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> getAllServices() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UrlServiceMonitorEntity.class);
 		return criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<ServiceMonitorEntity> deleteService(long id, String services_name) {
 		Criteria criteria  = sessionFactory.getCurrentSession().createCriteria(UrlServiceMonitorEntity.class);
 		criteria.add(Restrictions.eq("id", id)).add(Restrictions.like("services_name",services_name ));

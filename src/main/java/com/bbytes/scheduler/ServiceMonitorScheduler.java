@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.bbytes.dao.ServiceMonitorDao;
 import com.bbytes.entity.ServiceMonitorEntity;
 
-
 public class ServiceMonitorScheduler extends QuartzJobBean {
 	@Resource
 	private ServiceMonitorDao sqlServiceMonitorDao;
@@ -28,71 +27,55 @@ public class ServiceMonitorScheduler extends QuartzJobBean {
 
 	public void isActive(JobExecutionContext jobContext)
 			throws JobExecutionException {
-       List<ServiceMonitorEntity> serviceMonitorEntities = sqlServiceMonitorDao.getAllServices();
-       for(ServiceMonitorEntity serviceMonitorEntity : serviceMonitorEntities){
-    	  boolean isactive = serviceMonitorEntity.isIsactive();
-    	  long id = serviceMonitorEntity.getId();
-    	  if(isactive==true){
-    		  sqlServiceMonitorDao.saveActive(id, isactive);
-    	  }
-    	  if(isactive==false){
-    		  sqlServiceMonitorDao.stopActive(id, isactive);
-    	  }
-       }
-		
-	}
+		List<ServiceMonitorEntity> serviceMonitorEntities = sqlServiceMonitorDao
+				.getAllServices();
+		for (ServiceMonitorEntity serviceMonitorEntity : serviceMonitorEntities) {
+			boolean isactive = serviceMonitorEntity.isIsactive();
+			long id = serviceMonitorEntity.getId();
+			if (isactive == true) {
+				sqlServiceMonitorDao.saveActive(id, isactive);
+			}
+			if (isactive == false) {
+				sqlServiceMonitorDao.stopActive(id, isactive);
+			}
+		}
 
-	
+	}
 
 	public ServiceMonitorDao getSqlServiceMonitorDao() {
 		return sqlServiceMonitorDao;
 	}
 
-
-
 	public void setSqlServiceMonitorDao(ServiceMonitorDao sqlServiceMonitorDao) {
 		this.sqlServiceMonitorDao = sqlServiceMonitorDao;
 	}
-
-
 
 	public ServiceMonitorDao getCacheServiceMonitorDao() {
 		return cacheServiceMonitorDao;
 	}
 
-
-
-	public void setCacheServiceMonitorDao(ServiceMonitorDao cacheServiceMonitorDao) {
+	public void setCacheServiceMonitorDao(
+			ServiceMonitorDao cacheServiceMonitorDao) {
 		this.cacheServiceMonitorDao = cacheServiceMonitorDao;
 	}
-
-
 
 	public ServiceMonitorDao getQueueServiceMonitorDao() {
 		return queueServiceMonitorDao;
 	}
 
-
-
-	public void setQueueServiceMonitorDao(ServiceMonitorDao queueServiceMonitorDao) {
+	public void setQueueServiceMonitorDao(
+			ServiceMonitorDao queueServiceMonitorDao) {
 		this.queueServiceMonitorDao = queueServiceMonitorDao;
 	}
-
-
 
 	public ServiceMonitorDao getUrlServiceMonitorDao() {
 		return urlServiceMonitorDao;
 	}
 
-
-
 	public void setUrlServiceMonitorDao(ServiceMonitorDao urlServiceMonitorDao) {
 		this.urlServiceMonitorDao = urlServiceMonitorDao;
 	}
 
-
-
-	@Override
 	protected void executeInternal(JobExecutionContext jobContext)
 			throws JobExecutionException {
 		System.out.println("hi");
@@ -118,23 +101,21 @@ public class ServiceMonitorScheduler extends QuartzJobBean {
 				.getJobDataMap().get("urlServiceMonitorDao");
 		jobContext.getJobDetail().setName("UrlServiceMonitor");
 		urlServiceMonitorDao.getAllServices();
-		
-		System.out.println(jobContext.getJobDetail().getFullName());
-		
-		
-		  List<ServiceMonitorEntity> serviceMonitorEntities = sqlServiceMonitorDao.getAllServices();
-	       for(ServiceMonitorEntity serviceMonitorEntitylist : serviceMonitorEntities){
-	    	  boolean isactive = serviceMonitorEntitylist.isIsactive();
-	    	  long id = serviceMonitorEntitylist.getId();
-	    	  if(isactive==true){
-	    		  sqlServiceMonitorDao.saveActive(id, isactive);
-	    	  }
-	    	  if(isactive==false){
-	    		  sqlServiceMonitorDao.stopActive(id, isactive);
-	    	  }
-	       }
-	}
-		
 
-	
+		System.out.println(jobContext.getJobDetail().getFullName());
+
+		List<ServiceMonitorEntity> serviceMonitorEntities = sqlServiceMonitorDao
+				.getAllServices();
+		for (ServiceMonitorEntity serviceMonitorEntitylist : serviceMonitorEntities) {
+			boolean isactive = serviceMonitorEntitylist.isIsactive();
+			long id = serviceMonitorEntitylist.getId();
+			if (isactive == true) {
+				sqlServiceMonitorDao.saveActive(id, isactive);
+			}
+			if (isactive == false) {
+				sqlServiceMonitorDao.stopActive(id, isactive);
+			}
+		}
+	}
+
 }

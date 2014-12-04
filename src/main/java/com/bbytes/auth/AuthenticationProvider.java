@@ -40,7 +40,7 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 	}
 	
 	
-	@Override
+	
 	protected void additionalAuthenticationChecks(UserDetails arg0,
 			UsernamePasswordAuthenticationToken arg1)
 			throws AuthenticationException {

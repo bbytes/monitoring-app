@@ -6,6 +6,6 @@ public interface UserRegisterDao {
 	
 	public void addUser(UserEntity user);
 	
-	UserEntity findByEmail(String email);
+	
 
 }

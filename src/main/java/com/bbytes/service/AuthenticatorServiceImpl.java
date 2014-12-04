@@ -23,18 +23,18 @@ import com.bbytes.entity.UserEntity;
 import com.bbytes.service.IAuthenticatorService;
 
 @Service
-public class AuthenticatorServiceImpl implements IAuthenticatorService{
-	
-	private final Logger log = LoggerFactory.getLogger(AuthenticatorServiceImpl.class);
-    
+public class AuthenticatorServiceImpl implements IAuthenticatorService {
+
+	private final Logger log = LoggerFactory
+			.getLogger(AuthenticatorServiceImpl.class);
+
 	@Autowired
 	private UserLoginDao userRepository;
-	
+
 	public AuthenticatorServiceImpl() {
 
 	}
-	
-	@Override
+
 	public UserEntity authenticateUser(String email, String password)
 			throws UsernameNotFoundException, BadCredentialsException {
 		log.info(String.format("Login attempt for user: [%s]", email));
@@ -43,45 +43,43 @@ public class AuthenticatorServiceImpl implements IAuthenticatorService{
 
 		if (password == null || password.isEmpty())
 			throw new AuthenticationServiceException("No password entered");
-		
+
 		UserEntity user = userRepository.findByEmail(email);
-		
-		/*if(user == null){
-			user = userRepository.findByEmail(email);
-		}*/
-		
+
+		/*
+		 * if(user == null){ user = userRepository.findByEmail(email); }
+		 */
+
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format(
-					"User [%s] does not exist.", 
+					"User [%s] does not exist.",
 
-					email));}
-		else if (!password.equals(
-						user.getPassword())) {
-			throw new BadCredentialsException(String.format("Password for user [%s] does not match.", email));
+					email));
+		} else if (!password.equals(user.getPassword())) {
+			throw new BadCredentialsException(String.format(
+					"Password for user [%s] does not match.", email));
 		}
 		return user;
-		
-		
+
 	}
 
-	@Override
 	public void grantAuthority(UserEntity user, String password,
 			HttpSession httpSession) throws Exception {
 		SecurityContext context = SecurityContextHolder.getContext();
 
-		List<GrantedAuthority> authList = new 
+		List<GrantedAuthority> authList = new
 
-ArrayList<GrantedAuthority>(2);
+		ArrayList<GrantedAuthority>(2);
 
-		UsernamePasswordAuthenticationToken usernamePasswordAuthToken = 
+		UsernamePasswordAuthenticationToken usernamePasswordAuthToken =
 
-new UsernamePasswordAuthenticationToken(
-				new LoginUserDetails(user, password), 
+		new UsernamePasswordAuthenticationToken(new LoginUserDetails(user,
+				password),
 
-password, authList);
+		password, authList);
 		usernamePasswordAuthToken.setDetails(new LoginUserDetails
 
-(user, password));
+		(user, password));
 		user.setPassword(null);
 		usernamePasswordAuthToken.eraseCredentials();
 
@@ -89,8 +87,8 @@ password, authList);
 		httpSession.setAttribute
 
 		(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-						SecurityContextHolder.getContext());
-	
+				SecurityContextHolder.getContext());
+
 	}
 
 }

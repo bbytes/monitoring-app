@@ -12,15 +12,16 @@ import com.bbytes.dao.UserLoginDao;
 import com.bbytes.entity.UserEntity;
 
 @Service
-public class UserLoginServiceImpl implements UserLoginService{
+public class UserLoginServiceImpl implements UserLoginService {
 
 	private final Logger log = LoggerFactory
 			.getLogger(UserLoginServiceImpl.class);
 	@Autowired
 	UserLoginDao userRepository;
-	@Override
+
 	public UserEntity getSessionUser() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		@SuppressWarnings("unused")
 		String name = auth.getName();
 		UserEntity user = null;
@@ -40,13 +41,12 @@ public class UserLoginServiceImpl implements UserLoginService{
 					System.out.println(user.getFname());
 				}
 			}
-			
-		}	
+
+		}
 		return user;
-		
+
 	}
 
-	@Override
 	public boolean isLoggedIn() {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -57,7 +57,3 @@ public class UserLoginServiceImpl implements UserLoginService{
 		}
 	}
 }
-
-	
-
-
